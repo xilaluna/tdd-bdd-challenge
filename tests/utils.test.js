@@ -9,7 +9,7 @@ const expect = chai.expect
 // Lambdas lexically bind this and cannot access the Mocha context.
 // ========================================================
 
-it("should say hello", function() {
+it("should say hello", function () {
   const hello = utils.sayHello()
   expect(hello).to.be.a("string")
   expect(hello).to.equal("Hello")
@@ -26,8 +26,24 @@ it("should say hello", function() {
 // This is called "Red-Green-Refactor"
 // ========================================================
 
-
-
+it("should return the area of a rectangle", function () {
+  const areaFunction = utils.area(3, 10)
+  expect(areaFunction).to.be.a("Number")
+  expect(areaFunction).to.equal(3 * 10)
+  expect(areaFunction).to.be.above(0)
+})
+it("should return the perimeter of a rectangle", function () {
+  const perimeterFunction = utils.perimeter(7, 9)
+  expect(perimeterFunction).to.be.a("Number")
+  expect(perimeterFunction).to.equal(2 * (7 * 9))
+  expect(perimeterFunction).to.be.above(0)
+})
+it("should return the area of a circle", function () {
+  const circleArea = utils.circleArea(5)
+  expect(circleArea).to.be.a("Number")
+  expect(circleArea).to.equal((Math.PI * 5) ** 2)
+  expect(circleArea).to.be.above(0)
+})
 
 // ========================================================
 // Level 2 Challenges
@@ -42,7 +58,7 @@ beforeEach((done) => {
   done()
 })
 
-it("Should create a new (object) Item with name and price", function() {
+it("Should create a new (object) Item with name and price", function () {
   const item = utils.createItem("apple", 0.99)
   expect(item).to.be.a("object")
   expect(item).to.have.property("name", "apple")
@@ -50,13 +66,34 @@ it("Should create a new (object) Item with name and price", function() {
   expect(item).to.have.property("quantity", 1)
 })
 
-it("Should return an array containing all items in cart")
+it("Should return an array containing all items in cart", function () {
+  const getShoppingCart = utils.getShoppingCart()
+  expect(getShoppingCart).to.be.a("array")
+})
 
-it("Should add a new item to the shopping cart")
+it("Should add a new item to the shopping cart", function () {
+  const apple = utils.createItem("apple", 0.99)
+  const addItemToCart = utils.addItemToCart(apple)
+  expect(addItemToCart).to.be.a("Number")
+  expect(addItemToCart).to.equal(1)
+})
 
-it("Should return the number of items in the cart")
+it("Should return the number of items in the cart", function () {
+  const apple = utils.createItem("apple", 0.99)
+  utils.addItemToCart(apple)
+  utils.addItemToCart(apple)
+  utils.addItemToCart(apple)
+  const getNumItemsInCart = utils.getNumItemsInCart()
+  expect(getNumItemsInCart).to.be.a("Number")
+  expect(getNumItemsInCart).length.to.equal(3)
+})
 
-it("Should remove items from cart")
+it("Should remove items from cart", function () {
+  const apple = utils.createItem("apple", 0.99)
+  utils.addItemToCart(apple)
+  const removeItemFromCart = utils.removeItemFromCart("apple")
+  expect(removeItemFromCart).to.be.a("array")
+})
 
 // ========================================================
 // Stretch Challenges
